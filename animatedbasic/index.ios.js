@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
-import {AppRegistry, View, StyleSheet, Animated } from 'react-native';
+import {AppRegistry, View, StyleSheet, Animated, Easing } from 'react-native';
 
 export default class animatedbasic extends Component {
   
   componentWillMount() {
-    this.animatedOpacityValue = new Animated.Value(1)
+    this.animatedValue = new Animated.Value(1)
   }
   componentDidMount() {
-    Animated.timing(this.animatedOpacityValue, {
+    Animated.timing(this.animatedValue, {
       toValue: .3,
-      duration: 1000
+      duration: 1000,
+      easing: Easing.bounce
     }).start()
   }
   
   
   render() {
-    const style = { opacity: this.animatedOpacityValue }
+    const style = { opacity: this.animatedValue }
     return (
       <View style={styles.container}>
         <Animated.View style={[styles.animated, style]}/>
