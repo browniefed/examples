@@ -4,22 +4,21 @@ import {AppRegistry, View, StyleSheet, Animated, Easing } from 'react-native';
 export default class animatedbasic extends Component {
   
   componentWillMount() {
-    this.animatedValue = new Animated.Value(1)
+    this.animatedValue = new Animated.Value(100);
   }
   componentDidMount() {
     Animated.timing(this.animatedValue, {
-      toValue: .3,
+      toValue: 150,
       duration: 1000,
       easing: Easing.bounce
     }).start()
   }
   
-  
   render() {
-    const style = { opacity: this.animatedValue }
+    const animatedStyle = { height: this.animatedValue }
     return (
       <View style={styles.container}>
-        <Animated.View style={[styles.animated, style]}/>
+        <Animated.View style={[styles.box, animatedStyle]}/>
       </View>
     );
   }
@@ -31,7 +30,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  animated: {
+  box: {
     backgroundColor: "#333",
     width: 100,
     height: 100
