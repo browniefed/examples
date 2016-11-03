@@ -7,7 +7,6 @@ import {
   Animated,
   PanResponder,
 } from 'react-native';
-import clamp from "clamp";
 
 export default class animatedbasic extends Component {
   componentWillMount() {
