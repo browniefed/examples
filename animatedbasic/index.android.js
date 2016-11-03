@@ -1,31 +1,56 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Animated,
+  PanResponder,
 } from 'react-native';
+import clamp from "clamp";
 
 export default class animatedbasic extends Component {
+  componentWillMount() {
+    this.animatedValue = new Animated.ValueXY();
+    this._value = {x: 0, y: 0}
+    this.animatedValue.addListener((value) => this._value = value);
+
+    this.panResponder = PanResponder.create({
+      onStartShouldSetPanResponder: (evt, gestureState) => true,
+      onMoveShouldSetPanResponder: (evt, gestureState) => true,
+      onPanResponderGrant: (e, gestureState) => {
+        this.animatedValue.setOffset({
+          x: this._value.x,
+          y: this._value.y
+        });
+        this.animatedValue.setValue({x: 0, y: 0});
+      },
+      onPanResponderMove: Animated.event([
+        null, {dx: this.animatedValue.x, dy: this.animatedValue.y},
+      ]),
+      onPanResponderRelease: (e, {vx, vy}) => {
+        this.animatedValue.flattenOffset();
+        Animated.decay(this.animatedValue, {
+          velocity: {x: vx, y: vy},
+          deceleration: 0.997,
+        }).start();
+      }
+    })
+  }
+  
   render() {
+    const animatedStyle = {
+      transform: this.animatedValue.getTranslateTransform()
+    };
+
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+        <Animated.View 
+          {...this.panResponder.panHandlers}
+          style={[styles.box, animatedStyle]} 
+        >
+          <Text style={styles.text}>Drag Me</Text>
+        </Animated.View>
       </View>
     );
   }
@@ -36,18 +61,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
-  welcome: {
+  box: {
+    width: 150,
+    height: 150,
+    backgroundColor: "#333",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  text: {
+    color: "#FFF",
     fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  }
 });
 
 AppRegistry.registerComponent('animatedbasic', () => animatedbasic);
