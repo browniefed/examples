@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
-  Animated,
+  Animated
 } from 'react-native';
 
 export default class animatedbasic extends Component {
@@ -16,25 +16,22 @@ export default class animatedbasic extends Component {
     Animated.timing(this.animatedValue, {
       toValue: 1,
       duration: 1500
-    }).start();
+    }).start()
   }
+  
   render() {
     const interpolateRotation = this.animatedValue.interpolate({
       inputRange: [0, 1],
-      outputRange: ['0deg', '360deg']
-    });
-
+      outputRange: ['0rad', '10rad'],
+    })
     const animatedStyle = {
-      transform: [{
-        rotate: interpolateRotation
-      }]
+      transform: [
+        { rotate: interpolateRotation }
+      ]
     }
-
     return (
       <View style={styles.container}>
-        <Animated.View 
-          style={[styles.box, animatedStyle]}
-        >
+        <Animated.View style={[styles.box, animatedStyle]}>
           <Text style={styles.text}>Spinner</Text>
         </Animated.View>
       </View>
