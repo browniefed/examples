@@ -14,13 +14,13 @@ export default class animatedbasic extends Component {
   }
   componentDidMount() {
     Animated.timing(this.animatedValue, {
-      toValue: 100,
+      toValue: 1,
       duration: 1500
     }).start();
   }
   render() {
     const interpolateRotation = this.animatedValue.interpolate({
-      inputRange: [0, 100],
+      inputRange: [0, 1],
       outputRange: ['0deg', '360deg']
     });
 
