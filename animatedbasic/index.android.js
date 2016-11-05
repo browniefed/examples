@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
-  Animated,
+  Animated
 } from 'react-native';
 
 export default class animatedbasic extends Component {
@@ -15,24 +15,22 @@ export default class animatedbasic extends Component {
   componentDidMount() {
     Animated.timing(this.animatedValue, {
       toValue: 150,
-      duration: 1500,
+      duration: 1500
     }).start();
   }
   
   
   render() {
-    const colorInterpolate = this.animatedValue.interpolate({
+    const interpolateColor = this.animatedValue.interpolate({
       inputRange: [0, 150],
-      outputRange: ['rgb(0,0,0)', 'rgb(51,156,177)']
-    });
-
+      outputRange: ['rgb(0,0,0)', 'rgb(51, 250, 170)']
+    })
     const animatedStyle = {
-      backgroundColor: colorInterpolate,
-      transform: [{
-        translateY: this.animatedValue,
-      }]
+      backgroundColor: interpolateColor,
+      transform: [
+        { translateY: this.animatedValue }
+      ]
     }
-
     return (
       <View style={styles.container}>
         <Animated.View style={[styles.box, animatedStyle]} />
