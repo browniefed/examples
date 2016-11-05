@@ -35,7 +35,7 @@ export default class animatedbasic extends Component {
         <Animated.View 
           style={[styles.box, animatedStyle]}
         >
-          <Text style={styles.text}>Watch me spin</Text>
+          <Text style={styles.text}>Spinner</Text>
         </Animated.View>
       </View>
     );
