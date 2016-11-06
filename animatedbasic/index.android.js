@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
-  Animated,
+  Animated
 } from 'react-native';
 
 export default class animatedbasic extends Component {
@@ -34,13 +34,11 @@ export default class animatedbasic extends Component {
   
   render() {
     const animatedStyle = {
-      transform: [{
-        translateY: this.animatedValue1,
-      }, {
-        scale: this.animatedValue2
-      }]
+      transform: [
+        { translateY: this.animatedValue1},
+        { scale: this.animatedValue2}
+      ]
     }
-
     return (
       <View style={styles.container}>
         <Animated.View style={[styles.box, animatedStyle]}/>
