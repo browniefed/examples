@@ -4,8 +4,8 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity
 } from 'react-native';
+
 import MapView, { Marker } from 'react-native-maps';
 
 function getRandomInt(min, max) {
