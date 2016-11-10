@@ -21,7 +21,6 @@ export default class maps extends Component {
     this.state = {
       markers: []
     }
-
     this.handlePress = this.handlePress.bind(this);
   }
   handlePress(e) {
@@ -30,37 +29,33 @@ export default class maps extends Component {
         ...this.state.markers,
         {
           coordinate: e.nativeEvent.coordinate,
-          cost: `$${getRandomInt(50, 250)}`,
-        },
-      ],
-    });
+          cost: `$${getRandomInt(50, 300)}`
+        }
+      ]
+    })
   }
   render() {
     return (
-      <View style={styles.container}>
-        <MapView
-          style={styles.container}
-          initialRegion={{
+      <MapView 
+        style={styles.container}
+        initialRegion={{
             latitude: 45.5209087,
             longitude: -122.6705107,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
-          }}
+          }} 
           onPress={this.handlePress}
-        >
-          {
-            this.state.markers.map((marker, i) => {
-              return (
-                <Marker key={i} {...marker}>
-                  <View style={styles.marker}>
-                    <Text style={styles.text}>{marker.cost}</Text>
-                  </View>
-                </Marker>
-              )
-            })
-          }
-        </MapView>
-      </View>
+      >
+      {this.state.markers.map((marker) => {
+        return (
+          <Marker {...marker} >
+            <View style={styles.marker}>
+              <Text style={styles.text}>{marker.cost}</Text>
+            </View>
+          </Marker>
+        )
+      })}
+      </MapView>
     );
   }
 }
