@@ -4,9 +4,9 @@ import {
   StyleSheet,
   Text,
   View,
+  TouchableOpacity,
   UIManager,
-  findNodeHandle,
-  TouchableOpacity
+  findNodeHandle
 } from 'react-native';
 
 export default class measure extends Component {
@@ -16,9 +16,9 @@ export default class measure extends Component {
       measurements: {},
     }
   }
-  
+
   measure() {
-    UIManager.measure(findNodeHandle(this.view), (x, y, width, height) => {
+    this.view.measure((x, y, width, height) => {
       this.setState({
         measurements: {
           x,
@@ -29,18 +29,22 @@ export default class measure extends Component {
       })
     })
   }
-  
+
   render() {
     return (
       <View style={styles.container}>
         <View 
-          ref={(ref) => this.view = ref }
-          style={styles.measure} 
-          onLayout={({ nativeEvent }) => this.setState({ measurements: nativeEvent.layout })}
+          style={styles.measure}
+          ref={ref => this.view = ref}
+          onLayout={({ nativeEvent}) => {
+            this.setState({
+              measurements: nativeEvent.layout
+            })
+          }}
         >
           <Text>Measure Me</Text>
         </View>
-        <TouchableOpacity onPress={() => this.measure() }>
+        <TouchableOpacity onPress={() => this.measure()}>
           <Text>Measure With UIManager</Text>
         </TouchableOpacity>
         <View>
