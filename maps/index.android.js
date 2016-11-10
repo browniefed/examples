@@ -1,31 +1,65 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
 } from 'react-native';
 
+import MapView, { Marker } from 'react-native-maps';
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 export default class maps extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      markers: []
+    }
+
+    this.handlePress = this.handlePress.bind(this);
+  }
+  handlePress(e) {
+    this.setState({
+      markers: [
+        ...this.state.markers,
+        {
+          coordinate: e.nativeEvent.coordinate,
+          cost: `$${getRandomInt(50, 250)}`,
+        },
+      ],
+    });
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+        <MapView
+          style={styles.container}
+          initialRegion={{
+            latitude: 45.5209087,
+            longitude: -122.6705107,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+          onPress={this.handlePress}
+        >
+          {
+            this.state.markers.map((marker, i) => {
+              return (
+                <Marker key={i} {...marker}>
+                  <View style={styles.marker}>
+                    <Text style={styles.text}>{marker.cost}</Text>
+                  </View>
+                </Marker>
+              )
+            })
+          }
+        </MapView>
       </View>
     );
   }
@@ -34,20 +68,16 @@ export default class maps extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  marker: {
+    backgroundColor: "#550bbc",
+    padding: 5,
+    borderRadius: 5,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  text: {
+    color: "#FFF",
+    fontWeight: "bold"
+  }
 });
 
 AppRegistry.registerComponent('maps', () => maps);
