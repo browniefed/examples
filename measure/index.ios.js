@@ -5,15 +5,29 @@ import {
   Text,
   View,
   UIManager,
-  findNodeHandle
+  findNodeHandle,
+  TouchableOpacity
 } from 'react-native';
 
 export default class measure extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      measurements: {}
+      measurements: {},
     }
+  }
+  
+  measure() {
+    UIManager.measure(findNodeHandle(this.view), (x, y, width, height) => {
+      this.setState({
+        measurements: {
+          x,
+          y,
+          width,
+          height
+        }
+      })
+    })
   }
   
   render() {
@@ -26,6 +40,9 @@ export default class measure extends Component {
         >
           <Text>Measure Me</Text>
         </View>
+        <TouchableOpacity onPress={() => this.measure() }>
+          <Text>Measure With UIManager</Text>
+        </TouchableOpacity>
         <View>
           <Text>Width: {this.state.measurements.width}</Text>
           <Text>Height: {this.state.measurements.height}</Text>
