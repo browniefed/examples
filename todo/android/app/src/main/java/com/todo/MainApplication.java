@@ -1,4 +1,4 @@
-package com.todomvc;
+package com.todo;
 
 import android.app.Application;
 import android.util.Log;
