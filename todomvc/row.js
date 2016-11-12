@@ -10,16 +10,22 @@ import {
 
 const TodoRow = ({ text, complete, editing, onUpdate, onToggleEdit, onComplete, onRemove }) => {
   const textComponent = (
-    <Text style={[styles.text, complete ? styles.complete : undefined]}>{text}</Text>
+    <TouchableOpacity style={styles.textWrap} onLongPress={() => onToggleEdit(true)}>
+      <Text style={[styles.text, complete ? styles.complete : undefined]}>{text}</Text>
+    </TouchableOpacity>
   );
+
   const editingComponent = (
-    <TextInput
-      onChangeText={onUpdate}
-      autoFocus
-      value={text}
-      style={styles.input}
-      multiline
-    />
+    <View style={styles.textWrap}>
+      <TextInput
+        onChangeText={onUpdate}
+        autoFocus
+        value={text}
+        style={styles.input}
+        multiline
+        onSubmitEditing={() => onToggleEdit(false)}
+      />
+    </View>
   );
   const removeButton = (
     <TouchableOpacity onPress={onRemove}>
@@ -38,9 +44,7 @@ const TodoRow = ({ text, complete, editing, onUpdate, onToggleEdit, onComplete, 
           value={complete}
           onValueChange={onComplete}
         />
-        <TouchableOpacity style={styles.textWrap} onLongPress={() => onToggleEdit(true)}>
           {editing ? editingComponent : textComponent}
-        </TouchableOpacity>
         {editing ? doneButton : removeButton}
       </View>
   );
