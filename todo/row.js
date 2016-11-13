@@ -33,7 +33,10 @@ const TodoRow = ({ text, complete, editing, onUpdate, onToggleEdit, onComplete, 
     </TouchableOpacity>
   );
   const doneButton = (
-    <TouchableOpacity style={styles.done} onPress={() => onToggleEdit(false)}>
+    <TouchableOpacity 
+      style={styles.done} 
+      onPress={() => onToggleEdit(false)}
+    >
       <Text style={styles.doneText}>Save</Text>
     </TouchableOpacity>
   );
@@ -87,7 +90,9 @@ const styles = StyleSheet.create({
   },
   destroy: {
     color: "#cc9a9a",
-    fontSize: 20
+    fontSize: 20,
+    paddingHorizontal: 15,
+    paddingVertical: 7
   }
 })
 
