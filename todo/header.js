@@ -4,7 +4,7 @@ const Header = ({ value, onToggleAllComplete, onAddItem, onChange }) => {
     return (
         <View style={styles.header}>
           <TouchableOpacity onPress={onToggleAllComplete}>
-            <Text style={styles.toggleIcon}>❯</Text>
+            <Text style={styles.toggleIcon}>✔</Text>
           </TouchableOpacity>
           <TextInput
             value={value}
@@ -27,8 +27,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   toggleIcon: {
-    transform: [{ rotate: "90deg" }],
-    fontSize: 30,
+    fontSize: 20,
     color: "#CCC",
   },
   toggleActive: {

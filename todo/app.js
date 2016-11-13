@@ -10,6 +10,7 @@ import {
   AsyncStorage,
   ActivityIndicator,
   Keyboard,
+  Platform,
 } from 'react-native';
 
 import Row from "./row";
@@ -190,7 +191,9 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 30,
+    ...Platform.select({
+      ios: { paddingTop: 30 }
+    }),
     backgroundColor: "#f5f5f5"
   },
   loading: {
