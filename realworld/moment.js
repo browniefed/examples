@@ -68,8 +68,8 @@ class Moment extends Component {
         { translateX: this.props.translateX }
       ]
     }
-    
-    const bgFade = {
+
+    const bgFadeStyle = {
       backgroundColor: this.bgFadeInterpolate
     }
 
@@ -92,7 +92,7 @@ class Moment extends Component {
             />
           </View>
           <TouchableWithoutFeedback onPress={this.handlePress}>
-            <Animated.View style={[StyleSheet.absoluteFill, styles.center, bgFade]}>
+            <Animated.View style={[StyleSheet.absoluteFill, styles.center, bgFadeStyle]}>
               <Animated.View style={[textFadeStyle, styles.textWrap]}>
                 <Text style={styles.title}>Jason Brown</Text>
                 <Text style={styles.subtitle}>@browniefed</Text>
