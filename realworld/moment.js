@@ -20,6 +20,26 @@ class Moment extends Component {
     }
     this.handlePress = this.handlePress.bind(this);
   }
+
+  
+  componentWillMount() {
+    this.bgFadeInterpolate = this.state.scale.interpolate({
+      inputRange: [.9, 1],
+      outputRange: ["rgba(0,0,0,.3)", "rgba(0,0,0,0)"]
+    })
+
+    this.textFade = this.state.scale.interpolate({
+      inputRange: [.9, 1],
+      outputRange: [0, 1]
+    })
+    
+    this.calloutTranslate = this.state.scale.interpolate({
+      inputRange: [.9, 1],
+      outputRange: [0, 150]
+    });
+
+  }
+  
   
   handlePress() {
     if (this.state.focused) {
@@ -48,31 +68,17 @@ class Moment extends Component {
         { translateX: this.props.translateX }
       ]
     }
-    const bgFadeInterpolate = this.state.scale.interpolate({
-      inputRange: [.9, 1],
-      outputRange: ["rgba(0,0,0,.3)", "rgba(0,0,0,0)"]
-    })
-
+    
     const bgFade = {
-      backgroundColor: bgFadeInterpolate
+      backgroundColor: this.bgFadeInterpolate
     }
-
-    const textFade = this.state.scale.interpolate({
-      inputRange: [.9, 1],
-      outputRange: [0, 1]
-    })
 
     const textFadeStyle = {
-      opacity: textFade
+      opacity: this.textFade
     }
 
-    const calloutTranslate = this.state.scale.interpolate({
-      inputRange: [.9, 1],
-      outputRange: [0, 150]
-    });
-
     const calloutSlideStyle = {
-      transform: [{ translateY: calloutTranslate }]
+      transform: [{ translateY: this.calloutTranslate }]
     }
 
     return (
