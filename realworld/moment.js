@@ -15,17 +15,15 @@ class Moment extends Component {
     super(props);
 
     this.state = {
+      scale: new Animated.Value(1),
       focused: false,
     }
     this.handlePress = this.handlePress.bind(this);
   }
-  componentWillMount() {
-    this.scale = new Animated.Value(1);
-  }
-
+  
   handlePress() {
     if (this.state.focused) {
-      Animated.timing(this.scale, {
+      Animated.timing(this.state.scale, {
         toValue: 1,
         duration: 300,
       }).start(() => {
@@ -35,43 +33,116 @@ class Moment extends Component {
       return;
     }
     this.props.onFocus(true);
-    Animated.timing(this.scale, {
+    Animated.timing(this.state.scale, {
       toValue: .9,
       duration: 300
     }).start(() => {
       this.setState({ focused: true })
     })
   }
+
   render() {
     const animatedStyle = {
       transform: [
-        {scale: this.scale },
-        {translateX: this.props.animatedTranslate }
+        { scale: this.state.scale },
+        { translateX: this.props.translateX }
       ]
+    }
+    const bgFadeInterpolate = this.state.scale.interpolate({
+      inputRange: [.9, 1],
+      outputRange: ["rgba(0,0,0,.3)", "rgba(0,0,0,0)"]
+    })
+
+    const bgFade = {
+      backgroundColor: bgFadeInterpolate
+    }
+
+    const textFade = this.state.scale.interpolate({
+      inputRange: [.9, 1],
+      outputRange: [0, 1]
+    })
+
+    const textFadeStyle = {
+      opacity: textFade
+    }
+
+    const calloutTranslate = this.state.scale.interpolate({
+      inputRange: [.9, 1],
+      outputRange: [0, 150]
+    });
+
+    const calloutSlideStyle = {
+      transform: [{ translateY: calloutTranslate }]
     }
 
     return (
-      <TouchableWithoutFeedback onPress={this.handlePress}>
-        <View style={styles.container}>
-          <Animated.Image 
-            source={this.props.image} 
-            style={[styles.image, animatedStyle]} 
-            resizeMode="cover"
-          />
+      <View style={styles.container}>
+        <View>
+          <View style={styles.container}>
+            <Animated.Image 
+              source={this.props.image} 
+              style={[styles.image, animatedStyle]} 
+              resizeMode="cover"
+            />
+          </View>
+          <TouchableWithoutFeedback onPress={this.handlePress}>
+            <Animated.View style={[StyleSheet.absoluteFill, styles.center, bgFade]}>
+              <Animated.View style={[textFadeStyle, styles.textWrap]}>
+                <Text style={styles.title}>Jason Brown</Text>
+                <Text style={styles.subtitle}>@browniefed</Text>
+              </Animated.View>
+            </Animated.View>
+          </TouchableWithoutFeedback>
+          <Animated.View style={[styles.callout, calloutSlideStyle]}>
+            <View>
+              <Text style={styles.title}>Jason Brown</Text>
+              <Text style={styles.subtitle}>@browniefed</Text>
+            </View>
+          </Animated.View>
         </View>
-      </TouchableWithoutFeedback>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#333",
     overflow: "hidden",
-  },
-  image: {
     width: width,
     height: height,
+  },
+  image: {
+    flex: 1,
+    width: null,
+    height: null,
+  },
+  center: {
+    justifyContent: "center",
+  },
+  textWrap: {
+    backgroundColor: "rgba(0,0,0,.5)",
+    paddingVertical: 10,
+  },
+  title: {
+    backgroundColor: "transparent",
+    fontSize: 30,
+    color: '#FFF',
+    textAlign: "center"
+  },
+  subtitle: {
+    backgroundColor: "transparent",
+    fontSize: 18,
+    color: '#FFF',
+    textAlign: "center"
+  },
+  callout: {
+    height: 150,
+    backgroundColor: "rgba(0,0,0,.5)",
+    justifyContent: "center",
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    left: 0,
   }
 })
 
