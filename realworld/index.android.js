@@ -14,9 +14,10 @@ import Moment from "./moment";
 
 const { width, height } = Dimensions.get("window");
 const Images = [
-  require('./images/drink1.jpg'),
-  require('./images/drink2.jpg'),
-  require('./images/drink3.jpg'),
+  { image: require('./images/drink1.jpg'), title: "Vokda Cran" },
+  { image: require('./images/drink2.jpg'), title: "Old Fashion"},
+  { image: require('./images/drink3.jpg'), title: "Mule" },
+  { image: require('./images/drink4.jpg'), title: "Strawberry Daiquiri" }
 ];
 
 const getInterpolate = (animatedScroll, i, imageLength) => {
@@ -77,7 +78,7 @@ class App extends React.Component {
               return (
                 <Moment 
                   key={i}
-                  image={image} 
+                  {...image}
                   translateX={getInterpolate(this.state.animatedScroll, i, Images.length)}
                   onFocus={this.handleFocus}
                 />

@@ -94,15 +94,13 @@ class Moment extends Component {
           <TouchableWithoutFeedback onPress={this.handlePress}>
             <Animated.View style={[StyleSheet.absoluteFill, styles.center, bgFadeStyle]}>
               <Animated.View style={[textFadeStyle, styles.textWrap]}>
-                <Text style={styles.title}>Jason Brown</Text>
-                <Text style={styles.subtitle}>@browniefed</Text>
+                <Text style={styles.title}>{this.props.title}</Text>
               </Animated.View>
             </Animated.View>
           </TouchableWithoutFeedback>
           <Animated.View style={[styles.callout, calloutSlideStyle]}>
             <View>
-              <Text style={styles.title}>Jason Brown</Text>
-              <Text style={styles.subtitle}>@browniefed</Text>
+              <Text style={styles.title}>{this.props.title}</Text>
             </View>
           </Animated.View>
         </View>
@@ -132,12 +130,6 @@ const styles = StyleSheet.create({
   title: {
     backgroundColor: "transparent",
     fontSize: 30,
-    color: '#FFF',
-    textAlign: "center"
-  },
-  subtitle: {
-    backgroundColor: "transparent",
-    fontSize: 18,
     color: '#FFF',
     textAlign: "center"
   },
