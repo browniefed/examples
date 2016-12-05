@@ -5,8 +5,11 @@ import {
   StyleSheet,
   Text,
   View,
+  ScrollView,
+  Dimensions,
+  Animated
 } from 'react-native';
-
+const { width, height} = Dimensions.get("window");
 const Images = [
   { image: require('./images/drink1.jpg'), title: "Vokda Cran" },
   { image: require('./images/drink2.jpg'), title: "Old Fashion"},
