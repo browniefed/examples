@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  Dimensions,
-  Animated,
   Image,
-  ScrollView,
   StyleSheet,
   Text,
   View,
+  ScrollView,
+  Dimensions,
+  Animated,
 } from 'react-native';
 
 import Moment from "./moment";
