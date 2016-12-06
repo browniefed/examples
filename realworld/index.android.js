@@ -26,7 +26,7 @@ export default class realworld extends Component {
   handlePress() {
     Animated.timing(this.state.animate, {
       toValue: 1,
-      duration: 150
+      duration: 300
     }).start()
   }
 
@@ -37,7 +37,7 @@ export default class realworld extends Component {
       Animated.sequence([
         Animated.timing(this.state.animate, {
         toValue: 0,
-        duration: 150
+        duration: 300
       }),
       Animated.delay(1000)
       ]).start(() => this.setState({ success: false}))
