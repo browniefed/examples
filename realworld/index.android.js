@@ -21,7 +21,6 @@ export default class realworld extends Component {
     super(props);
 
     this.state = {
-      open: false,
       animate: new Animated.Value(0),
       fabs: [
         new Animated.Value(0),
@@ -29,11 +28,12 @@ export default class realworld extends Component {
         new Animated.Value(0),
       ]
     }
+    this.open = false;
     this.handlePress = this.handlePress.bind(this);
   }
 
   handlePress() {
-    const toValue = this.state.open ? 0 : 1;
+    const toValue = this.open ? 0 : 1;
     const flyouts = this.state.fabs.map((value, i) => {
       return Animated.spring(value, {
         toValue: (i + 1) * -90 * toValue,
@@ -47,7 +47,9 @@ export default class realworld extends Component {
         duration: 300
       }),
       Animated.stagger(30, flyouts)
-    ]).start(() => this.setState({ open: !this.state.open }));
+    ]).start();
+
+    this.open = !this.open;
   }
 
   render() {
@@ -66,7 +68,7 @@ export default class realworld extends Component {
 
     const fabRotate = this.state.animate.interpolate({
       inputRange: [0, 1],
-      outputRange: ['0deg', '45deg']
+      outputRange: ['0deg', '135deg']
     });
 
     const fabStyle = {
