@@ -9,6 +9,7 @@ const Heart = ({ filled, style, ...props}) => {
     </View>
   )
   const fillStyle = filled ? styles.filledHeart : styles.empty;
+
   return (
     <Animated.View {...props} style={[styles.heart, style]}>
       <View style={[styles.leftHeart, styles.heartShape, fillStyle]} />
