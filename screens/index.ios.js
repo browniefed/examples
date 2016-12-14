@@ -5,13 +5,9 @@ import {
   Text,
   View,
   Image,
-  Dimensions,
   TextInput,
-  Button,
   TouchableOpacity
 } from 'react-native';
-
-const { width, height } = Dimensions.get("window");
 
 const background = require("./background.jpg");
 const lockIcon = require("./lock.png");
@@ -64,8 +60,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   background: {
-    width,
-    height,
+    width: null,
+    height: null,
+    flex: 1,
   },
   wrapper: {
     paddingHorizontal: 15,
