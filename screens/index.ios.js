@@ -68,32 +68,30 @@ const styles = StyleSheet.create({
     height,
   },
   wrapper: {
-    paddingHorizontal: 30,
+    paddingHorizontal: 15,
   },
   inputWrap: {
     flexDirection: "row",
-    alignItems: "center",
     marginVertical: 10,
+    height: 40,
   },
   iconWrap: {
-    height: 40,
     paddingHorizontal: 7,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#5784af",
+    backgroundColor: "#d73352",
   },
   icon: {
-    height: 25,
-    width: 25,
+    height: 20,
+    width: 20,
   },
   input: {
     flex: 1,
     paddingHorizontal: 10,
-    height: 40,
     backgroundColor: "#FFF",
   },
   button: {
-    backgroundColor: "#5784af",
+    backgroundColor: "#d73352",
     paddingVertical: 15,
     marginVertical: 15,
     alignItems: "center",
@@ -101,6 +99,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#FFF",
+    fontSize: 18,
   },
   forgotPasswordText: {
     color: "#FFF",

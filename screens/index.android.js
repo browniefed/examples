@@ -1,31 +1,56 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Image,
+  Dimensions,
+  TextInput,
+  Button,
+  TouchableOpacity
 } from 'react-native';
+
+const { width, height } = Dimensions.get("window");
+
+const background = require("./background.jpg");
+const lockIcon = require("./lock.png");
+const personIcon = require("./person.png");
 
 export default class screens extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+        <Image source={background} style={styles.background} resizeMode="cover">
+          <View style={styles.spacer} />
+          <View style={styles.wrapper}>
+            <View style={styles.inputWrap}>
+              <View style={styles.iconWrap}>
+                <Image source={personIcon} style={styles.icon} resizeMode="contain" />
+              </View>
+              <TextInput placeholder="Username" style={styles.input} />
+            </View>
+            <View style={styles.inputWrap}>
+              <View style={styles.iconWrap}>
+                <Image source={lockIcon} style={styles.icon} resizeMode="contain" />
+              </View>
+              <TextInput placeholder="Password" style={styles.input} secureTextEntry />
+            </View>
+            <View>
+              <TouchableOpacity activeOpacity={.5}>
+                <View style={styles.button}>
+                  <Text style={styles.buttonText}>Sign In</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity activeOpacity={.5}>
+                <View>
+                  <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.spacer}/>
+        </Image>
       </View>
     );
   }
@@ -34,20 +59,53 @@ export default class screens extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  spacer: {
+    flex: 1,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  background: {
+    width,
+    height,
   },
+  wrapper: {
+    paddingHorizontal: 15,
+  },
+  inputWrap: {
+    flexDirection: "row",
+    marginVertical: 10,
+    height: 40,
+  },
+  iconWrap: {
+    paddingHorizontal: 7,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#d73352",
+  },
+  icon: {
+    height: 20,
+    width: 20,
+  },
+  input: {
+    flex: 1,
+    paddingHorizontal: 10,
+    backgroundColor: "#FFF",
+  },
+  button: {
+    backgroundColor: "#d73352",
+    paddingVertical: 15,
+    marginVertical: 15,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  buttonText: {
+    color: "#FFF",
+    fontSize: 18,
+  },
+  forgotPasswordText: {
+    color: "#FFF",
+    backgroundColor: "transparent",
+    textAlign: "center"
+  }
 });
 
 AppRegistry.registerComponent('screens', () => screens);
