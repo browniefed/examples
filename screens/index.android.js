@@ -17,8 +17,8 @@ export default class screens extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image source={background} style={styles.background} resizeMode="cover">
-          <View style={styles.spacer} />
+        <Image source={background} style={[styles.container, styles.background]} resizeMode="cover">
+          <View style={styles.container} />
           <View style={styles.wrapper}>
             <View style={styles.inputWrap}>
               <View style={styles.iconWrap}>
@@ -45,7 +45,7 @@ export default class screens extends Component {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={styles.spacer}/>
+          <View style={styles.container}/>
         </Image>
       </View>
     );
@@ -56,13 +56,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  spacer: {
-    flex: 1,
-  },
   background: {
     width: null,
     height: null,
-    flex: 1,
   },
   wrapper: {
     paddingHorizontal: 15,
