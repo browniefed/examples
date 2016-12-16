@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: "#333",
     width: 100,
-    height: 100
   }
 })
 
