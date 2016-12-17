@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {AppRegistry, View, StyleSheet, Animated, Easing } from 'react-native';
 
 export default class animatedbasic extends Component {
-  
   componentWillMount() {
     this.animatedValue = new Animated.Value(100);
   }
@@ -33,6 +32,7 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: "#333",
     width: 100,
+    height: 100,
   }
 })
 
