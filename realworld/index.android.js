@@ -12,15 +12,15 @@ import {
 export default class realworld extends Component {
   constructor(props) {
     super(props);
-
     this.triggerAnimation = this.triggerAnimation.bind(this);
   }
+  
   componentWillMount() {
     this.animation = new Animated.Value(0);
   }
-
+  
   triggerAnimation() {
-    this.animation.setValue(0)
+    this.animation.setValue(0);
     Animated.timing(this.animation, {
       duration: 400,
       toValue: 3,
@@ -31,19 +31,13 @@ export default class realworld extends Component {
   render() {
     const interpolated = this.animation.interpolate({
       inputRange: [0, .5, 1, 1.5, 2, 2.5, 3],
-      outputRange: [0, -15, 0, 15, 0, -15, 0],
-    })
-    const colorInterpolate = this.animation.interpolate({
-      inputRange: [0, 3],
-      outputRange: ['rgb(106,90,214)', 'rgb(253,75,63)']
+      outputRange: [0, -15, 0, 15, 0, -15, 0]
     })
     const style = {
-      backgroundColor: colorInterpolate,
       transform: [
         { translateX: interpolated }
       ]
     }
-
     return (
       <View style={styles.container}>
         <TouchableWithoutFeedback onPress={this.triggerAnimation}>
@@ -65,6 +59,8 @@ const styles = StyleSheet.create({
   button: {
     paddingVertical: 15,
     paddingHorizontal: 30,
+    borderRadius: 30,
+    backgroundColor: "#333"
   },
   text: {
     color: "#FFF"
