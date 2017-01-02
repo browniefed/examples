@@ -16,69 +16,15 @@ class Moment extends Component {
 
     this.state = {
       scale: new Animated.Value(1),
-      focused: false,
     }
-    this.handlePress = this.handlePress.bind(this);
   }
 
   
-  componentWillMount() {
-    this.bgFadeInterpolate = this.state.scale.interpolate({
-      inputRange: [.9, 1],
-      outputRange: ["rgba(0,0,0,.3)", "rgba(0,0,0,0)"]
-    })
-
-    this.textFade = this.state.scale.interpolate({
-      inputRange: [.9, 1],
-      outputRange: [0, 1]
-    })
-    
-    this.calloutTranslate = this.state.scale.interpolate({
-      inputRange: [.9, 1],
-      outputRange: [0, 150]
-    });
-
-  }
-  
-  
-  handlePress() {
-    if (this.state.focused) {
-      Animated.timing(this.state.scale, {
-        toValue: 1,
-        duration: 300,
-      }).start(() => {
-        this.props.onFocus(false)
-        this.setState({ focused: false });
-      })
-      return;
-    }
-    this.props.onFocus(true);
-    Animated.timing(this.state.scale, {
-      toValue: .9,
-      duration: 300
-    }).start(() => {
-      this.setState({ focused: true })
-    })
-  }
-
   render() {
     const animatedStyle = {
       transform: [
-        { scale: this.state.scale },
         { translateX: this.props.translateX }
       ]
-    }
-
-    const bgFadeStyle = {
-      backgroundColor: this.bgFadeInterpolate
-    }
-
-    const textFadeStyle = {
-      opacity: this.textFade
-    }
-
-    const calloutSlideStyle = {
-      transform: [{ translateY: this.calloutTranslate }]
     }
 
     return (
@@ -91,18 +37,13 @@ class Moment extends Component {
               resizeMode="cover"
             />
           </View>
-          <TouchableWithoutFeedback onPress={this.handlePress}>
-            <Animated.View style={[StyleSheet.absoluteFill, styles.center, bgFadeStyle]}>
-              <Animated.View style={[textFadeStyle, styles.textWrap]}>
+          <TouchableWithoutFeedback>
+            <Animated.View style={[StyleSheet.absoluteFill, styles.center]}>
+              <Animated.View style={[styles.textWrap]}>
                 <Text style={styles.title}>{this.props.title}</Text>
               </Animated.View>
             </Animated.View>
           </TouchableWithoutFeedback>
-          <Animated.View style={[styles.callout, calloutSlideStyle]}>
-            <View>
-              <Text style={styles.title}>{this.props.title}</Text>
-            </View>
-          </Animated.View>
         </View>
       </View>
     );
@@ -132,15 +73,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: '#FFF',
     textAlign: "center"
-  },
-  callout: {
-    height: 150,
-    backgroundColor: "rgba(0,0,0,.5)",
-    justifyContent: "center",
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    left: 0,
   }
 })
 
