@@ -51,7 +51,14 @@ class App extends React.Component {
     super(props);
     this.state = {
       animatedScroll: new Animated.Value(0),
+      scrollEnabled: true
     }
+    this.handleFocus = this.handleFocus.bind(this);
+  }
+  handleFocus(focused) {
+    this.setState({
+      scrollEnabled: !focused
+    })
   }
   render() {
     return (
@@ -59,6 +66,7 @@ class App extends React.Component {
         <ScrollView
           pagingEnabled
           horizontal
+          scrollEnabled={this.state.scrollEnabled}
           scrollEventThrottle={16}
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { x: this.state.animatedScroll } } }],
@@ -71,6 +79,8 @@ class App extends React.Component {
                   key={i}
                   {...image}
                   translateX={getInterpolate(this.state.animatedScroll, i, Images.length)}
+                  onFocus={this.handleFocus}
+                  focused={!this.state.scrollEnabled}
                 />
               )
             })
