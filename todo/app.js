@@ -70,7 +70,7 @@ class App extends Component {
             style={styles.list}
             enableEmptySections
             dataSource={this.state.dataSource}
-            onScroll={() => Keyboard.dimiss()}
+            onScroll={() => Keyboard.dismiss()}
             renderRow={({ key, ...value}) => {
               return (
                 <Row
