@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   AppRegistry,
   StyleSheet,
@@ -8,7 +8,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity
-} from 'react-native';
+} from "react-native";
 
 import Portland from "./portland.jpg";
 
@@ -16,38 +16,54 @@ export default class realworld extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
-    }
+      open: false
+    };
     this.toggleCard = this.toggleCard.bind(this);
   }
   componentWillMount() {
     this.animated = new Animated.Value(0);
   }
   toggleCard() {
-
-    this.setState((state) => ({
-      open: !state.open,
-    }), () => {
-      const toValue = this.state.open ? 1 : 0;
-      Animated.timing(this.animated, {
-        toValue,
-        duration: 500
-      }).start();
-    })
-
-   
+    this.setState(
+      state => ({
+        open: !state.open
+      }),
+      () => {
+        const toValue = this.state.open ? 1 : 0;
+        Animated
+          .timing(this.animated, {
+            toValue,
+            duration: 500
+          })
+          .start();
+      }
+    );
   }
   render() {
-
     const offsetInterpolate = this.animated.interpolate({
       inputRange: [0, 1],
-      outputRange: [190, 0],
+      outputRange: [191, 0]
+    });
+
+    const arrowRotate = this.animated.interpolate({
+      inputRange: [0, 1],
+      outputRange: ["180deg", "0deg"]
     });
 
     const offsetStyle = {
-      transform: [{
-        translateY: offsetInterpolate
-      }]
+      transform: [
+        {
+          translateY: offsetInterpolate
+        }
+      ]
+    };
+
+    const rotateStyle = {
+      transform: [
+        {
+          rotate: arrowRotate
+        }
+      ]
     }
 
     return (
@@ -61,7 +77,7 @@ export default class realworld extends Component {
                   <Text style={styles.date}>June 24th</Text>
                 </View>
                 <View style={styles.arrowContainer}>
-                  {this.state.open && <Text style={styles.arrow}>↓</Text>}
+                  <Animated.Text style={[rotateStyle, styles.arrow]}>↓</Animated.Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -82,7 +98,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#152536",
+    backgroundColor: "#152536"
   },
   background: {
     width: 300,
@@ -90,19 +106,19 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     overflow: "hidden",
     borderWidth: 1,
-    borderColor: "rgba(255,255,255,.5)",
+    borderColor: "rgba(255,255,255,.5)"
   },
   card: {
     backgroundColor: "#FFF",
     flex: 1,
     paddingHorizontal: 15,
-    paddingVertical: 7,
+    paddingVertical: 7
   },
   scrollView: {
-    marginTop: 15,
+    marginTop: 15
   },
   header: {
-    flexDirection: "row",
+    flexDirection: "row"
   },
   title: {
     fontSize: 24,
@@ -115,13 +131,13 @@ const styles = StyleSheet.create({
   arrowContainer: {
     flex: 1,
     alignItems: "flex-end",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   arrow: {
     fontSize: 30,
-    color: "#333",
+    color: "#333"
   }
 });
 
-AppRegistry.registerComponent('realworld', () => realworld);
+AppRegistry.registerComponent("realworld", () => realworld);
 console.disableYellowBox = true;
