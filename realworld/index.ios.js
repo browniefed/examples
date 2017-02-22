@@ -52,29 +52,26 @@ export default class realworld extends Component {
 
     return (
       <View style={styles.container}>
-        
-        <View style={styles.shadowWrap}>
-          <Image source={Portland} resizeMode="cover" style={styles.background}>
-            <Animated.View style={[styles.card, offsetStyle]}>
-              <TouchableOpacity onPress={this.toggleCard}>
-                <View style={styles.header}>
-                  <View>
-                    <Text style={styles.title}>Portland, Oregon</Text>
-                    <Text style={styles.date}>June 24th</Text>
-                  </View>
-                  <View style={styles.arrowContainer}>
-                    {this.state.open && <Text style={styles.arrow}>↓</Text>}
-                  </View>
+        <Image source={Portland} resizeMode="cover" style={styles.background}>
+          <Animated.View style={[styles.card, offsetStyle]}>
+            <TouchableOpacity onPress={this.toggleCard}>
+              <View style={styles.header}>
+                <View>
+                  <Text style={styles.title}>Portland, Oregon</Text>
+                  <Text style={styles.date}>June 24th</Text>
                 </View>
-              </TouchableOpacity>
-              <ScrollView contentContainerStyle={styles.scrollView}>
-                <Text>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget sodales est. Donec facilisis, urna nec scelerisque pellentesque, nulla est euismod nunc, sed lacinia ex nunc placerat neque. Proin malesuada venenatis leo. Etiam viverra ipsum nec justo pharetra, eget rutrum enim eleifend. Ut eu mollis mi. Aenean eget nisl nibh. Sed sed elit eget nisi tincidunt elementum vitae vitae orci. Phasellus porta vitae purus eu molestie. Nulla cursus eros odio, sit amet pellentesque felis semper eu. Mauris id facilisis libero. Nullam posuere sed magna quis aliquam. Praesent sodales vulputate sollicitudin. Ut in rutrum eros, ac facilisis augue. Suspendisse consequat, erat ut convallis tincidunt, enim sem auctor ligula, sit amet congue arcu ligula at tortor. Morbi a elit varius, blandit tellus suscipit, tincidunt erat. Mauris feugiat cursus bibendum.
-                </Text>
-              </ScrollView>
-            </Animated.View>
-          </Image>
-        </View>
+                <View style={styles.arrowContainer}>
+                  {this.state.open && <Text style={styles.arrow}>↓</Text>}
+                </View>
+              </View>
+            </TouchableOpacity>
+            <ScrollView contentContainerStyle={styles.scrollView}>
+              <Text>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget sodales est. Donec facilisis, urna nec scelerisque pellentesque, nulla est euismod nunc, sed lacinia ex nunc placerat neque. Proin malesuada venenatis leo. Etiam viverra ipsum nec justo pharetra, eget rutrum enim eleifend. Ut eu mollis mi. Aenean eget nisl nibh. Sed sed elit eget nisi tincidunt elementum vitae vitae orci. Phasellus porta vitae purus eu molestie. Nulla cursus eros odio, sit amet pellentesque felis semper eu. Mauris id facilisis libero. Nullam posuere sed magna quis aliquam. Praesent sodales vulputate sollicitudin. Ut in rutrum eros, ac facilisis augue. Suspendisse consequat, erat ut convallis tincidunt, enim sem auctor ligula, sit amet congue arcu ligula at tortor. Morbi a elit varius, blandit tellus suscipit, tincidunt erat. Mauris feugiat cursus bibendum.
+              </Text>
+            </ScrollView>
+          </Animated.View>
+        </Image>
       </View>
     );
   }
