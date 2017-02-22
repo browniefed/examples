@@ -50,7 +50,7 @@ export default class realworld extends Component {
       outputRange: [150, 150, 300],
       extrapolate: "clamp"
     });
-    const scaleInterpolate = this.state.animate.interpolate({
+    const notifyTextScaleInterpolate = this.state.animate.interpolate({
       inputRange: [0, .5],
       outputRange: [1, 0],
       extrapolate: "clamp"
@@ -70,9 +70,6 @@ export default class realworld extends Component {
     const thankyouScaleInterpolate = this.state.animate.interpolate({
       inputRange: [0, 1],
       outputRange: [1, 0]
-    }).interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, 1]
     });
 
     const buttonWrapStyle = {
@@ -81,7 +78,7 @@ export default class realworld extends Component {
 
     const notifyTextStyle = {
       transform: [{
-        scale: scaleInterpolate
+        scale: notifyTextScaleInterpolate
       }]
     }
 
@@ -181,3 +178,4 @@ const styles = StyleSheet.create({
 });
 
 AppRegistry.registerComponent('realworld', () => realworld);
+console.disableYellowBox = true;
