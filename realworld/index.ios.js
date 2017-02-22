@@ -39,7 +39,7 @@ export default class realworld extends Component {
         toValue: 0,
         duration: 300
       }),
-      Animated.delay(1000)
+      Animated.delay(1500)
       ]).start(() => this.setState({ success: false}))
     })
   }
