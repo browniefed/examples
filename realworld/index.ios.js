@@ -16,14 +16,16 @@ export default class realworld extends Component {
     this.animatedMargin = new Animated.Value(0);
     this.scrollOffset = 0;
     this.contentHeight = 0;
+    this.scrollViewHeight = 0;
 
     this.panResponder = PanResponder.create({
       onMoveShouldSetPanResponder: (evt, gestureState) => {
         const { dy } = gestureState;
-        console.log(this.scrollOffset, this.contentHeight);
+        const totalScrollHeight = this.scrollOffset + this.scrollViewHeight;
+        
         if (
             (this.scrollOffset <= 0 && dy > 0) || 
-            (this.scrollOffset >= this.contentHeight)
+            ((totalScrollHeight >= this.contentHeight) && dy < 0)
            ) 
         {
           return true;
@@ -107,12 +109,15 @@ export default class realworld extends Component {
             <ScrollView
               scrollEventThrottle={16}
               onScroll={event => {
-                this.scrollOffset = event.nativeEvent.contentOffset.y + event.nativeEvent.layoutMeasurement.height;
+                this.scrollOffset = event.nativeEvent.contentOffset.y;
+                this.scrollViewHeight = event.nativeEvent.layoutMeasurement.height;
               }}
               onContentSizeChange={(contentWidth, contentHeight) =>
                 this.contentHeight = contentHeight}
             >
+              <Text style={styles.fakeText}>Top</Text>
               <View style={styles.fakeComments} />
+              <Text style={styles.fakeText}>Bottom</Text>
             </ScrollView>
           </View>
           <View style={styles.inputWrap}>
@@ -138,6 +143,10 @@ const styles = StyleSheet.create({
   },
   comments: {
     flex: 1
+  },
+  fakeText: {
+    padding: 15,
+    textAlign: "center"
   },
   fakeComments: {
     height: 1000,
