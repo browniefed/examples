@@ -7,7 +7,6 @@ import {
   Image,
   Animated,
   ScrollView,
-
 } from "react-native";
 
 import Egghead from "./egghead.png";
@@ -21,22 +20,21 @@ export default class realworld extends Component {
     const hideImageInterpolate = this.animated.interpolate({
       inputRange: [0, 250],
       outputRange: [50, 0],
-      extrapolate: "clamp"
-    });
-    
+      extrapolate: "clamp",
+    })
+
     const fontInterpolate = this.animated.interpolate({
       inputRange: [0, 250],
       outputRange: [24, 30],
-      extrapolate: "clamp"
-    });
+    })
 
-    const fadeButtonInteroplate = this.animated.interpolate({
+    const opacityInterpolate = this.animated.interpolate({
       inputRange: [0, 250],
       outputRange: [1, 0],
       extrapolate: "clamp"
     });
 
-    const collapseHeight = this.animated.interpolate({
+    const collapseInterpolate = this.animated.interpolate({
       inputRange: [0, 250],
       outputRange: [50, 0],
       extrapolate: "clamp"
@@ -44,23 +42,23 @@ export default class realworld extends Component {
 
     const imageStyle = {
       width: hideImageInterpolate,
-      height: hideImageInterpolate,
-    };
+      height: hideImageInterpolate
+    }
 
     const titleStyle = {
-      fontSize: fontInterpolate,
-    };
+      fontSize: fontInterpolate
+    }
 
     const fadeButtonStyle = {
-      opacity: fadeButtonInteroplate,
-      height: collapseHeight,
+      opacity: opacityInterpolate,
+      height: collapseInterpolate
     }
 
     return (
       <View style={styles.container}>
         <View style={styles.header}>
           <Animated.Image source={Egghead} style={[styles.image, imageStyle]} />
-          <Animated.Text style={titleStyle}>Egghead</Animated.Text>
+          <Animated.Text style={[styles.titleStyle, titleStyle]}>Egghead</Animated.Text>
           <Animated.View style={[styles.buttons, fadeButtonStyle]}>
             <View style={styles.button}>
               <Text>Button 1</Text>
@@ -71,13 +69,15 @@ export default class realworld extends Component {
           </Animated.View>
         </View>
         <View style={styles.scrollView}>
-          <ScrollView
+          <ScrollView 
             scrollEventThrottle={16}
             onScroll={Animated.event([
-              { nativeEvent: { contentOffset: { y: this.animated } } }
+              { nativeEvent: { contentOffset: { y: this.animated }}}
             ])}
           >
-            <View style={styles.fakeContent} />
+            <View style={styles.fakeContent}>
+              <Text style={styles.fakeText}>Top</Text>
+            </View>
           </ScrollView>
         </View>
       </View>
@@ -89,12 +89,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
+  titleStyle: {
+    marginBottom: 10,
+  },
   fakeContent: {
     height: 1000,
     backgroundColor: "#4A89DC"
   },
+  fakeText: {
+    padding: 15,
+    textAlign: "center",
+    color: "#FFF",
+  },
   buttons: {
     flexDirection: "row",
+  },
+  image: {
+    width: 50,
+    height: 50,
   },
   button: {
     flex: 1,

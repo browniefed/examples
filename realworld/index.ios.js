@@ -13,15 +13,53 @@ import Egghead from "./egghead.png";
 
 export default class realworld extends Component {
   componentWillMount() {
+    this.animated = new Animated.Value(0);
   }
 
   render() {
+    const hideImageInterpolate = this.animated.interpolate({
+      inputRange: [0, 250],
+      outputRange: [50, 0],
+      extrapolate: "clamp",
+    })
+
+    const fontInterpolate = this.animated.interpolate({
+      inputRange: [0, 250],
+      outputRange: [24, 30],
+    })
+
+    const opacityInterpolate = this.animated.interpolate({
+      inputRange: [0, 250],
+      outputRange: [1, 0],
+      extrapolate: "clamp"
+    });
+
+    const collapseInterpolate = this.animated.interpolate({
+      inputRange: [0, 250],
+      outputRange: [50, 0],
+      extrapolate: "clamp"
+    })
+
+    const imageStyle = {
+      width: hideImageInterpolate,
+      height: hideImageInterpolate
+    }
+
+    const titleStyle = {
+      fontSize: fontInterpolate
+    }
+
+    const fadeButtonStyle = {
+      opacity: opacityInterpolate,
+      height: collapseInterpolate
+    }
+
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Animated.Image source={Egghead} style={[styles.image]} />
-          <Animated.Text style={[styles.titleStyle]}>Egghead</Animated.Text>
-          <Animated.View style={[styles.buttons]}>
+          <Animated.Image source={Egghead} style={[styles.image, imageStyle]} />
+          <Animated.Text style={[styles.titleStyle, titleStyle]}>Egghead</Animated.Text>
+          <Animated.View style={[styles.buttons, fadeButtonStyle]}>
             <View style={styles.button}>
               <Text>Button 1</Text>
             </View>
@@ -31,7 +69,12 @@ export default class realworld extends Component {
           </Animated.View>
         </View>
         <View style={styles.scrollView}>
-          <ScrollView >
+          <ScrollView 
+            scrollEventThrottle={16}
+            onScroll={Animated.event([
+              { nativeEvent: { contentOffset: { y: this.animated }}}
+            ])}
+          >
             <View style={styles.fakeContent}>
               <Text style={styles.fakeText}>Top</Text>
             </View>
