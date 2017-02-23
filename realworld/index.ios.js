@@ -24,35 +24,24 @@ export default class realworld extends Component {
     this.animated = new Animated.Value(0);
   }
   toggleCard() {
-    this.setState(
-      state => ({
-        open: !state.open
-      }),
-      () => {
-        const toValue = this.state.open ? 1 : 0;
-        Animated
-          .timing(this.animated, {
-            toValue,
-            duration: 500
-          })
-          .start();
-      }
-    );
+    this.setState((state) => ({
+      open: !state.open
+    }), () => {
+      const toValue = this.state.open ? 1 : 0;
+      Animated.timing(this.animated, {
+        toValue,
+        duration: 500
+      }).start();
+    })
   }
   render() {
     const offsetInterpolate = this.animated.interpolate({
       inputRange: [0, 1],
       outputRange: [191, 0]
-    });
-
+    })
     const arrowRotate = this.animated.interpolate({
       inputRange: [0, 1],
       outputRange: ["180deg", "0deg"]
-    });
-
-    const opacityInterpolate = this.animated.interpolate({
-      inputRange: [0, 1],
-      outputRange: [1, 0]
     })
 
     const offsetStyle = {
@@ -61,9 +50,9 @@ export default class realworld extends Component {
           translateY: offsetInterpolate
         }
       ]
-    };
+    }
 
-    const rotateStyle = {
+    const arrowStyle = {
       transform: [
         {
           rotate: arrowRotate
@@ -72,9 +61,8 @@ export default class realworld extends Component {
     }
 
     const opacityStyle = {
-      opacity: this.animated,
+      opacity: this.animated
     }
-
     return (
       <View style={styles.container}>
         <Image source={Portland} resizeMode="cover" style={styles.background}>
@@ -86,11 +74,11 @@ export default class realworld extends Component {
                   <Text style={styles.date}>June 24th</Text>
                 </View>
                 <View style={styles.arrowContainer}>
-                  <Animated.Text style={[rotateStyle, styles.arrow]}>↓</Animated.Text>
+                  <Animated.Text style={[styles.arrow, arrowStyle]}>↓</Animated.Text>
                 </View>
               </View>
             </TouchableOpacity>
-            <Animated.View style={[opacityStyle, styles.scrollViewWrap]}>
+            <Animated.View style={[styles.scrollViewWrap, opacityStyle]}>
               <ScrollView contentContainerStyle={styles.scrollView}>
                 <Text>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget sodales est. Donec facilisis, urna nec scelerisque pellentesque, nulla est euismod nunc, sed lacinia ex nunc placerat neque. Proin malesuada venenatis leo. Etiam viverra ipsum nec justo pharetra, eget rutrum enim eleifend. Ut eu mollis mi. Aenean eget nisl nibh. Sed sed elit eget nisi tincidunt elementum vitae vitae orci. Phasellus porta vitae purus eu molestie. Nulla cursus eros odio, sit amet pellentesque felis semper eu. Mauris id facilisis libero. Nullam posuere sed magna quis aliquam. Praesent sodales vulputate sollicitudin. Ut in rutrum eros, ac facilisis augue. Suspendisse consequat, erat ut convallis tincidunt, enim sem auctor ligula, sit amet congue arcu ligula at tortor. Morbi a elit varius, blandit tellus suscipit, tincidunt erat. Mauris feugiat cursus bibendum.
@@ -126,7 +114,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     flex: 1,
     paddingHorizontal: 15,
-    paddingVertical: 4
+    paddingVertical: 4,
+    transform: [{
+      translateY: 191,
+    }]
   },
   scrollView: {
     marginTop: 15
