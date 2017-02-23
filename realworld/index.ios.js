@@ -43,11 +43,11 @@ export default class realworld extends Component {
         const { dy } = gestureState;
 
         // Animate away over the top
-        if (dy < -100) {
+        if (dy < -150) {
           Animated
             .parallel([
               Animated.timing(this.animated, {
-                toValue: -300,
+                toValue: -400,
                 duration: 150
               }),
               Animated.timing(this.animatedMargin, {
@@ -57,7 +57,7 @@ export default class realworld extends Component {
             ])
             .start();
           //Animate back to start position
-        } else if (dy > -100 && dy < 100) {
+        } else if (dy > -150 && dy < 150) {
           Animated
             .parallel([
               Animated.timing(this.animated, {
@@ -70,11 +70,11 @@ export default class realworld extends Component {
               })
             ])
             .start();
-        } else if (dy > 100) {
+        } else if (dy > 150) {
           Animated
             .parallel([
               Animated.timing(this.animated, {
-                toValue: 300,
+                toValue: 400,
                 duration: 300
               })
             ])
@@ -90,7 +90,7 @@ export default class realworld extends Component {
     };
 
     const opacityInterpolate = this.animated.interpolate({
-      inputRange: [-300, 0, 300],
+      inputRange: [-400, 0, 400],
       outputRange: [0, 1, 0]
     });
     const modalStyle = {
