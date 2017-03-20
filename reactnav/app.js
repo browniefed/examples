@@ -5,20 +5,25 @@ import {
   View
 } from 'react-native';
 
-export default class App extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-       
-      </View>
-    );
-  }
-}
+import { TabNavigator } from "react-navigation";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+import Home from "./screens/home";
+import Notifications from "./screens/notifications";
+import Profile from "./screens/profile";
+
+const MainNav = TabNavigator({
+  Home: {
+    screen: Home
   },
-});
+  Notifications: {
+    screen: Notifications
+  },
+  Profile: {
+    screen: Profile
+  }
+}, {
+  swipeEnabled: true,
+  animationEnabled: true
+})
 
-export default App;
+export default MainNav;
