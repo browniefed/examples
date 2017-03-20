@@ -5,20 +5,21 @@ import {
   View
 } from 'react-native';
 
-export default class App extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-       
-      </View>
-    );
-  }
-}
+import { StackNavigator } from "react-navigation";
+import Home from "./screens/home";
+import Info from "./screens/info";
+import Profile from "./screens/profile";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+const MainStack = StackNavigator({
+  Home: {
+    screen: Home
   },
-});
+  Info: {
+    screen: Info
+  },
+  Profile: {
+    screen: Profile
+  }
+})
 
-export default App;
+export default MainStack;
