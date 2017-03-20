@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
@@ -6,20 +5,6 @@ import {
   View
 } from 'react-native';
 
-export default class reactnav extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-       
-      </View>
-    );
-  }
-}
+import App from "./app";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-
-AppRegistry.registerComponent('reactnav', () => reactnav);
+AppRegistry.registerComponent('reactnav', () => App);
