@@ -19,12 +19,14 @@ class HomeScreen extends Component {
       label: "Home",
       icon: <Image source={require("../home.png")} style={styles.icon} />,
     },
+    title: "Home",
   };
   render() {
     return (
       <View style={styles.container}>
         <Text>Home</Text>
-        <Button title="Go to Profile" onPress={() => this.props.navigation.navigate("Profile")} />
+        <Button title="Go to Profile" onPress={() => this.props.navigation.navigate("ProfileDrawer")} />
+        <Button title="Go to Notifications" onPress={() => this.props.navigation.navigate("Notifications")} />
         <Button title="Open Drawer" onPress={() => this.props.navigation.navigate("DrawerOpen")} />
         <Button title="Closer Drawer" onPress={() => this.props.navigation.navigate("DrawerClose")} />
       </View>

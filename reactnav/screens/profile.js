@@ -19,12 +19,14 @@ class ProfileScreen extends Component {
       label: "Profile",
       icon: <Image source={require("../profile.png")} style={styles.icon} />,
     },
+    title: "Profile",
   };
   render() {
     return (
       <View style={styles.container}>
         <Text>Profile</Text>
-        <Button title="Go Home" onPress={() => this.props.navigation.navigate("Home")} />
+        <Button title="Go Home" onPress={() => this.props.navigation.navigate("HomeDrawer")} />
+        <Button title="Go Change Password" onPress={() => this.props.navigation.navigate("ChangePassword")} />
         <Button title="Open Drawer" onPress={() => this.props.navigation.navigate("DrawerOpen")} />
         <Button title="Closer Drawer" onPress={() => this.props.navigation.navigate("DrawerClose")} />
       </View>
