@@ -5,20 +5,18 @@ import {
   View
 } from 'react-native';
 
-export default class App extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-       
-      </View>
-    );
-  }
-}
+import { DrawerNavigator } from "react-navigation";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+import Home from "./screens/home"
+import Profile from "./screens/profile";
+
+const MainNav = DrawerNavigator({
+  Home: {
+    screen: Home
   },
-});
+  Profile: {
+    screen: Profile
+  }
+})
 
-export default App;
+export default MainNav;
