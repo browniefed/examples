@@ -4,7 +4,7 @@ import { AppRegistry, StyleSheet, Text, View, ScrollView, Dimensions } from "rea
 import Video from "react-native-video";
 import LightVideo from "./lights.mp4";
 
-const END_THRESHOLD = 100;
+const THRESHOLD = 100;
 export default class rnvideo extends Component {
   state = {
     paused: true,
@@ -16,17 +16,19 @@ export default class rnvideo extends Component {
   handleVideoLayout = e => {
     const { height } = Dimensions.get("window");
 
-    this.position.start = e.nativeEvent.layout.y - height;
-    this.position.end = e.nativeEvent.layout.y + e.nativeEvent.layout.height - END_THRESHOLD;
+    this.position.start = e.nativeEvent.layout.y - height + THRESHOLD;
+    this.position.end = e.nativeEvent.layout.y + e.nativeEvent.layout.height - THRESHOLD;
   };
 
   handleScroll = e => {
-    const scrollPosition = e.nativeEvent.contentOffset.y
+    const scrollPosition = e.nativeEvent.contentOffset.y;
     const paused = this.state.paused;
-    
+
     if (scrollPosition > this.position.start && scrollPosition < this.position.end && paused) {
       this.setState({ paused: false });
-    } else if (scrollPosition > this.position.end && !paused) {
+    } else if (
+      (scrollPosition > this.position.end || scrollPosition < this.position.start) && !paused
+    ) {
       this.setState({ paused: true });
     }
   };
