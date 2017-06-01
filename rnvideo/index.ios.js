@@ -5,9 +5,6 @@ import {
   Text,
   View
 } from 'react-native';
-
-import Video from "react-native-video";
-import LightVideo from "./lights.mp4";
 export default class rnvideo extends Component {
   render() {
     return (
