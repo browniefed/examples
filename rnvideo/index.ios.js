@@ -23,11 +23,12 @@ export default class rnvideo extends Component {
   handleScroll = e => {
     const scrollPosition = e.nativeEvent.contentOffset.y;
     const paused = this.state.paused;
+    const { start, end } = this.position;
 
-    if (scrollPosition > this.position.start && scrollPosition < this.position.end && paused) {
+    if (scrollPosition > start && scrollPosition < end && paused) {
       this.setState({ paused: false });
     } else if (
-      (scrollPosition > this.position.end || scrollPosition < this.position.start) && !paused
+      (scrollPosition > end || scrollPosition < start) && !paused
     ) {
       this.setState({ paused: true });
     }
