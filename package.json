@@ -1,3 +1,7 @@
 {
-  "dependencies": {}
+  "dependencies": {
+    "react-native": "^0.44.2",
+    "react-native-vector-icons": "^4.2.0",
+    "react-native-video": "^1.0.0"
+  }
 }
