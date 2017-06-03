@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { AppRegistry, StyleSheet, Text, View, Dimensions } from "react-native";
+import { AppRegistry, StyleSheet, Text, View, Animated, Dimensions } from "react-native";
 
 import Video from "react-native-video";
 import LightVideo from "./lights.mp4";
@@ -8,39 +8,67 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 export default class rnvideo extends Component {
   state = {
-    error: false,
+    buffering: true,
+    animated: new Animated.Value(0),
   };
-  handleError = meta => {
-    const { error: { code } } = meta;
 
-    let error = "An error has occurred playing this video";
-    switch (code) {
-      case -11800:
-        error = "Could not load video from URL";
-        break;
+  handleLoadStart = () => {
+    this.triggerBufferAnimation();
+  };
+
+  triggerBufferAnimation = () => {
+    this.loopingAnimation && this.loopingAnimation.stopAnimation();
+    this.loopingAnimation = Animated.loop(
+      Animated.timing(this.state.animated, {
+        toValue: 1,
+        duration: 350,
+      })
+    ).start();
+  };
+
+  handleBuffer = meta => {
+    meta.isBuffering && this.triggerBufferAnimation()
+
+    if (this.loopingAnimation && !meta.isBuffering) {
+      this.loopingAnimation.stopAnimation();
     }
 
     this.setState({
-      error,
+      buffering: meta.isBuffering,
     });
   };
   render() {
     const { width } = Dimensions.get("window");
     const height = width * 0.5625;
-    const { error } = this.state;
+    const { buffering } = this.state;
+
+    const interpolatedAnimation = this.state.animated.interpolate({
+      inputRange: [0, 1],
+      outputRange: ["0deg", "360deg"],
+    });
+
+    const rotateStyle = {
+      transform: [{ rotate: interpolatedAnimation }],
+    };
 
     return (
       <View style={styles.container}>
-        <View style={error ? styles.error : undefined}>
+        <View style={buffering ? styles.buffering : undefined}>
           <Video
+            repeat
             style={{ width: "100%", height }}
-            source={{ uri: "http://google.com/notavideo" }}
+            source={{
+              uri: "https://player.vimeo.com/external/206340985.hd.mp4?s=0b055000e30067f11d3e2537bceb7157b47475bc&profile_id=119&oauth2_token_id=57447761",
+            }}
             resizeMode="contain"
-            onError={this.handleError}
+            onLoadStart={this.handleLoadStart}
+            onBuffer={this.handleBuffer}
           />
           <View style={styles.videoCover}>
-            {error && <Icon name="exclamation-triangle" size={30} color="red" />}
-            {error && <Text>{error}</Text>}
+            {buffering &&
+              <Animated.View style={rotateStyle}>
+                <Icon name="circle-o-notch" size={30} color="white" />
+              </Animated.View>}
           </View>
         </View>
       </View>
@@ -61,9 +89,9 @@ const styles = StyleSheet.create({
     top: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: "rgba(255,255,255, .9)",
+    backgroundColor: "transparent",
   },
-  error: {
+  buffering: {
     backgroundColor: "#000",
   },
 });
