@@ -51,7 +51,11 @@ const PlaylistVideo = ({ name, channel, views, image }) => {
 
 export default class rnvideo extends Component {
   componentWillMount() {
+    this._y = 0;
     this._animation = new Animated.Value(0);
+    this._animation.addListener(({ value }) => {
+      this._y = value;
+    })
 
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
@@ -68,7 +72,9 @@ export default class rnvideo extends Component {
             toValue: 300,
             duration: 200,
           }).start();
+          this._animation.setOffset(300);
         } else {
+          this._animation.setOffset(0);
           Animated.timing(this._animation, {
             toValue: 0,
             duration: 200,
@@ -78,6 +84,7 @@ export default class rnvideo extends Component {
     });
   }
   handleOpen = () => {
+    this._animation.setOffset(0);
     Animated.timing(this._animation, {
       toValue: 0,
       duration: 200,
@@ -143,7 +150,7 @@ export default class rnvideo extends Component {
             style={[{ width, height }, videoStyles]}
             {...this._panResponder.panHandlers}
           >
-            <Video style={StyleSheet.absoluteFill} source={Lights} resizeMode="contain" />
+            <Video repeat style={StyleSheet.absoluteFill} source={Lights} resizeMode="contain" />
           </Animated.View>
           <Animated.ScrollView style={[styles.scrollView, scrollStyles]}>
             <View style={[styles.topContent, styles.padding]}>
