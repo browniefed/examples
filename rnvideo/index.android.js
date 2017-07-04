@@ -77,7 +77,12 @@ export default class rnvideo extends Component {
       },
     });
   }
-
+  handleOpen = () => {
+    Animated.timing(this._animation, {
+      toValue: 0,
+      duration: 200,
+    }).start();
+  }
   render() {
     const { width, height: screenHeight } = Dimensions.get("window");
     const height = width * 0.5625;
@@ -101,7 +106,7 @@ export default class rnvideo extends Component {
 
     const translateXInterpolate = this._animation.interpolate({
       inputRange: [0, 300],
-      outputRange: [0, 80],
+      outputRange: [0, 85],
       extrapolate: "clamp",
     });
 
@@ -130,8 +135,10 @@ export default class rnvideo extends Component {
 
     return (
       <View style={styles.container}>
-        <Text>Covering other content...</Text>
-        <View style={StyleSheet.absoluteFill}>
+        <TouchableOpacity onPress={this.handleOpen}>
+          <Text>Content Below: Click To Reopen Video</Text>
+        </TouchableOpacity>
+        <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
           <Animated.View
             style={[{ width, height }, videoStyles]}
             {...this._panResponder.panHandlers}
