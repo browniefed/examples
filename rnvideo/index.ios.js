@@ -168,7 +168,7 @@ export default class rnvideo extends Component {
             <View style={[styles.channelInfo, styles.padding]}>
               <Image
                 source={ChannelIcon}
-                style={{ width: 50, height: 50 }}
+                style={StyleSheet.channelIcon}
                 resizeMode="contain"
               />
               <View style={styles.channelText}>
@@ -268,6 +268,10 @@ const styles = StyleSheet.create({
     borderBottomColor: "#DDD",
     borderTopWidth: 1,
     borderTopColor: "#DDD",
+  },
+  channelIcon: {
+    width: 50,
+    height: 50,
   },
   channelText: {
     marginLeft: 15,
