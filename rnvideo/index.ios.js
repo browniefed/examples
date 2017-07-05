@@ -153,7 +153,7 @@ export default class rnvideo extends Component {
             <Video repeat style={StyleSheet.absoluteFill} source={Lights} resizeMode="contain" />
           </Animated.View>
           <Animated.ScrollView style={[styles.scrollView, scrollStyles]}>
-            <View style={[styles.topContent, styles.padding]}>
+            <View style={styles.padding}>
               <Text style={styles.title}>Beautiful DJ Mixing Lights</Text>
               <Text>1M Views</Text>
               <View style={styles.likeRow}>
@@ -168,7 +168,7 @@ export default class rnvideo extends Component {
             <View style={[styles.channelInfo, styles.padding]}>
               <Image
                 source={ChannelIcon}
-                style={StyleSheet.channelIcon}
+                style={styles.channelIcon}
                 resizeMode="contain"
               />
               <View style={styles.channelText}>
@@ -235,14 +235,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  videoWrap: {
-    flex: 1,
-  },
   scrollView: {
-    flex: 5,
+    flex: 1,
     backgroundColor: "#FFF",
   },
-  topContent: {},
   title: {
     fontSize: 28,
   },
@@ -280,7 +276,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 5,
   },
-  playlist: {},
   playlistUpNext: {
     fontSize: 24,
   },
