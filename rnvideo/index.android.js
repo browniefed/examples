@@ -10,6 +10,8 @@ import {
   TouchableOpacity,
   PanResponder,
   Animated,
+  Platform,
+  StatusBar
 } from "react-native";
 
 import Video from "react-native-video";
@@ -48,6 +50,8 @@ const PlaylistVideo = ({ name, channel, views, image }) => {
     </View>
   );
 };
+
+console.log();
 
 export default class rnvideo extends Component {
   componentWillMount() {
@@ -91,8 +95,13 @@ export default class rnvideo extends Component {
     }).start();
   }
   render() {
-    const { width, height: screenHeight } = Dimensions.get("window");
-    const height = width * 0.5625;
+    const { width, height: screenHeight  } = Dimensions.get("window");
+    const videoHeight = width * 0.5625;
+
+    const padding = 15;
+    const statusBarHeight = StatusBar.currentHeight || 0;
+    const yOutput = ((screenHeight - videoHeight) + (( videoHeight * .5) / 2)) - padding - statusBarHeight;
+    const xOutput = ((width * .5) / 2) - padding;
 
     const opacityInterpolate = this._animation.interpolate({
       inputRange: [0, 300],
@@ -101,7 +110,7 @@ export default class rnvideo extends Component {
 
     const translateYInterpolate = this._animation.interpolate({
       inputRange: [0, 300],
-      outputRange: [0, screenHeight - height + 40],
+      outputRange: [0, yOutput],
       extrapolate: "clamp",
     });
 
@@ -113,7 +122,7 @@ export default class rnvideo extends Component {
 
     const translateXInterpolate = this._animation.interpolate({
       inputRange: [0, 300],
-      outputRange: [0, 85],
+      outputRange: [0, xOutput],
       extrapolate: "clamp",
     });
 
@@ -147,7 +156,7 @@ export default class rnvideo extends Component {
         </TouchableOpacity>
         <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
           <Animated.View
-            style={[{ width, height }, videoStyles]}
+            style={[{ width, height: videoHeight }, videoStyles]}
             {...this._panResponder.panHandlers}
           >
             <Video repeat style={StyleSheet.absoluteFill} source={Lights} resizeMode="contain" />
