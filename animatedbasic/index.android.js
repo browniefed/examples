@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 
 export default class animatedbasic extends Component {
-  
   componentWillMount() {
     this.animatedValue = new Animated.Value(0);
     this.value = 0;
@@ -24,7 +23,16 @@ export default class animatedbasic extends Component {
       inputRange: [0, 180],
       outputRange: ['180deg', '360deg']
     })
+    this.frontOpacity = this.animatedValue.interpolate({
+      inputRange: [89, 90],
+      outputRange: [1, 0]
+    })
+    this.backOpacity = this.animatedValue.interpolate({
+      inputRange: [89, 90],
+      outputRange: [0, 1]
+    })
   }
+
   flipCard() {
     if (this.value >= 90) {
       Animated.spring(this.animatedValue,{
@@ -41,11 +49,11 @@ export default class animatedbasic extends Component {
     }
 
   }
-  
+
   render() {
     const frontAnimatedStyle = {
       transform: [
-        { rotateY: this.frontInterpolate}
+        { rotateY: this.frontInterpolate }
       ]
     }
     const backAnimatedStyle = {
@@ -53,15 +61,16 @@ export default class animatedbasic extends Component {
         { rotateY: this.backInterpolate }
       ]
     }
+
     return (
       <View style={styles.container}>
         <View>
-          <Animated.View style={[styles.flipCard, frontAnimatedStyle]}>
+          <Animated.View style={[styles.flipCard, frontAnimatedStyle, {opacity: this.frontOpacity}]}>
             <Text style={styles.flipText}>
               This text is flipping on the front.
             </Text>
           </Animated.View>
-          <Animated.View style={[backAnimatedStyle, styles.flipCard, styles.flipCardBack]}>
+          <Animated.View style={[styles.flipCard, styles.flipCardBack, backAnimatedStyle, {opacity: this.backOpacity}]}>
             <Text style={styles.flipText}>
               This text is flipping on the back.
             </Text>
